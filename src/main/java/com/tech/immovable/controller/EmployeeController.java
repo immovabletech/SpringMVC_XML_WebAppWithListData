@@ -33,7 +33,7 @@ public class EmployeeController {
 		System.out.println(employeeList.size());
 		return employeeList;
 	}
-
+	
 	@RequestMapping(value = "/createEmployee", method = RequestMethod.POST)
 	public @ResponseBody Response createEmployee(@RequestBody Employee employee) {
 		Response response = new Response();
@@ -41,11 +41,11 @@ public class EmployeeController {
 		try {
 			if (employee != null) {
 				System.out.println("Validating Employee email ID : " + employee.getEmpId().trim().isEmpty());
-				if (employee.getEmail().trim().isEmpty() && employee.getFirstName().trim().isEmpty()) {
+				if (employee.getEmail().trim().isEmpty() || employee.getFirstName().trim().isEmpty()) {
 					response.setReqMsg("Employee first name & emailID's are mandatory");
 					return response;
 				}
-				if (!employee.getEmpId().trim().endsWith("@immovable.com")) {
+				if (!employee.getEmail().trim().endsWith("@immovable.com")) {
 					response.setReqMsg("Employee Email ID must be with @immovable.com");
 					return response;
 				}
